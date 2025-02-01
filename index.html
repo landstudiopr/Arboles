@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CERP-PR</title>
-    <link href="https://fonts.googleapis.com/css2?family=Uber+Move:wght@400;700&display=swap" rel="stylesheet" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Árboles Endémicos de Puerto Rico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Uber+Move:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         /* RESET & BASE STYLES */
         * {
@@ -16,222 +16,92 @@
         }
 
         body {
-            background-color: #000;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: #fff;
             font-family: 'Uber Move', sans-serif;
+            text-align: center;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* HEADER NAVIGATION */
+        /* HEADER */
         header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid #222;
-            background-color: #000;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
             position: sticky;
             top: 0;
             z-index: 100;
-            transition: transform 0.3s ease;
-            /* For slide-up/slide-down effect */
         }
 
-        /* When scrolling down, this class slides the header up (hidden) */
-        header.hide {
-            transform: translateY(-100%);
+        h1 {
+            font-size: 2rem;
         }
 
-        .logo-section {
+        /* BUTTONS */
+        .family-buttons {
             display: flex;
-            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 1rem 0;
         }
 
-        .logo-section img {
-            height: 35px;
-            width: 35px;
-            border-radius: 50%;
-            margin-right: 0.75rem;
-            object-fit: cover;
-        }
-
-        .logo-section h1 {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        /* NAV menu styling */
-        nav {
-            position: relative;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 1rem;
-        }
-
-        nav a {
-            font-size: 0.95rem;
-            font-weight: 500;
-            opacity: 0.85;
-            transition: opacity 0.3s;
-        }
-
-        nav a:hover {
-            opacity: 1;
-        }
-
-        /* HAMBURGER MENU BUTTON (Hidden on larger screens) */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            justify-content: space-around;
-            width: 26px;
-            height: 20px;
-            background: none;
+        .family-buttons button {
+            background: #444;
+            color: white;
             border: none;
+            padding: 10px 15px;
             cursor: pointer;
-            padding: 0;
-        }
-
-        .hamburger span {
-            display: block;
-            width: 100%;
-            height: 2px;
-            background: #fff;
-            border-radius: 1px;
-        }
-
-        /* MOBILE NAVIGATION (Hidden by default) */
-        .mobile-nav {
-            display: none;
-            flex-direction: column;
-            position: absolute;
-            top: 60px;
-            /* adjusts just below header */
-            right: 0;
-            background-color: #000;
-            border: 1px solid #222;
-            border-radius: 4px;
-            padding: 0.5rem 1rem;
-        }
-
-        .mobile-nav ul {
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        /* Show hamburger & hide full nav on small screens */
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-                /* hide the horizontal menu */
-            }
-
-            .hamburger {
-                display: flex;
-                /* show the hamburger icon */
-            }
-
-            .mobile-nav.show {
-                display: flex;
-                /* reveal the mobile nav */
-            }
-        }
-
-        /* MAIN CONTENT */
-        main {
-            padding: 1rem 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .main-heading {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        /* CARDS LAYOUT (MOBILE FIRST) */
-        .cards-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            /* Single column on mobile */
-            gap: 1rem;
-        }
-
-        @media (min-width: 600px) {
-            .cards-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 992px) {
-            .cards-container {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* CARD STYLES (Height reduced ~20%) */
-        .card {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #222;
-            /* fallback if image fails */
-            cursor: pointer;
-            /* Force each card to a shorter, fixed height (adjust as desired) */
-            height: 440px;
-            /* ~20% less than typical 300px or so */
-        }
-
-        .card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* crops the image if it's larger */
-        }
-
-        /* Title overlay */
-        .card .card-title {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background: rgba(0, 0, 0, 0.6);
-            font-weight: 600;
             font-size: 1rem;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .family-buttons button:hover {
+            background: #666;
+        }
+
+        /* SPECIES CONTAINER */
+        .species-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: left;
+        }
+
+        .species-section {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .species-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .species-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .species-list li {
+            font-size: 1.1rem;
+            margin: 5px 0;
         }
     </style>
 
     <script>
-        /* Toggles the mobile nav */
-        function toggleMobileNav() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.toggle('show');
-        }
-
-        /* Hide the header on scroll down, show it on scroll up */
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-            if (currentScroll > lastScrollTop) {
-                // Scrolling down -> hide header
-                header.classList.add('hide');
-            } else {
-                // Scrolling up -> show header
-                header.classList.remove('hide');
+        function showFamily(familyId) {
+            let sections = document.querySelectorAll('.species-section');
+            sections.forEach(section => section.style.display = 'none');
+            
+            let selectedSection = document.getElementById(familyId);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
             }
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-        });
+        }
     </script>
 </head>
 
@@ -239,89 +109,106 @@
 
     <!-- HEADER -->
     <header>
-        <div class="logo-section">
-            <img src="foto.jpg" alt="Celeste Logo" />
-            <h1>CERP-PR</h1>
+        <h1>Árboles Endémicos de Puerto Rico</h1>
+        <div class="family-buttons">
+            <button onclick="showFamily('Apocynaceae')">Apocynaceae</button>
+            <button onclick="showFamily('Aquifoliaceae')">Aquifoliaceae</button>
+            <button onclick="showFamily('Araliaceae')">Araliaceae</button>
+            <button onclick="showFamily('Arecaceae')">Arecaceae</button>
+            <button onclick="showFamily('Asteraceae')">Asteraceae</button>
+            <button onclick="showFamily('Bignoniaceae')">Bignoniaceae</button>
+            <button onclick="showFamily('Boraginaceae')">Boraginaceae</button>
+            <button onclick="showFamily('Buxaceae')">Buxaceae</button>
+            <button onclick="showFamily('Myrtaceae')">Myrtaceae</button>
         </div>
-        <nav>
-            <!-- Standard Horizontal Nav (hidden on mobile) -->
-            <ul>
-                <li><a href="#">Módulos</a></li>
-                <li><a href="#"></a>Herramientas</li>
-                <li><a href="#"></a>Datos</li>
-                <li><a href="#"></a>Galería</li>
-                <li><a href="#"></a></li>
-            </ul>
-
-            <!-- Hamburger Button (shown on mobile) -->
-            <button class="hamburger" onclick="toggleMobileNav()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <!-- Mobile Navigation (slides down under hamburger) -->
-            <div class="mobile-nav" id="mobileNav">
-                <ul>
-                    <li><a href="#">Módulos</a></li>
-                    <li><a href="#"></a>Herramientas</li>
-                    <li><a href="#"></a>Audiovisual</li>
-                    <li><a href="#"></a>Datos</li>
-                    <li><a href="#"></a></li>
-                </ul>
-            </div>
-        </nav>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <main>
-        <h2 class="main-heading"></h2>
-
-        <!-- CARDS CONTAINER -->
-        <div class="cards-container">
-            <!-- Card 1 -->
-            <div class="card">
-                <img src="clima.jpg" alt="1" />
-                <div class="card-title">Clima</div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="card">
-                <img src="playa.jpg" alt="2" />
-                <div class="card-title">Playa</div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="card">
-                <img src="dunas.jpg" alt="3" />
-                <div class="card-title">Dunas</div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="card">
-                <img src="gis1.jpg" alt="4" />
-                <div class="card-title">GIS</div>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="card">
-                <img src="miti.jpg" alt="5" />
-                <div class="card-title">Mitigación</div>
-            </div>
-
-            <!-- Card 6 -->
-            <div class="card">
-                <img src="foda.jpg" alt="6" />
-                <div class="card-title">Análisis FODA</div>
-            </div>
-
-            <!-- Card 7 -->
-            <div class="card">
-                <img src="coas.jpg" alt="7" />
-                <div class="card-title">Cursos de Acción(COA)</div>
-            </div>
+    <!-- SPECIES LIST -->
+    <div class="species-container">
+        
+        <!-- Apocynaceae -->
+        <div id="Apocynaceae" class="species-section">
+            <h2>Apocynaceae</h2>
+            <ul class="species-list">
+                <li><i>Plumeria krugii</i></li>
+                <li><i>Tabernaemontana oppositifolia</i></li>
+            </ul>
         </div>
-    </main>
+
+        <!-- Aquifoliaceae -->
+        <div id="Aquifoliaceae" class="species-section">
+            <h2>Aquifoliaceae</h2>
+            <ul class="species-list">
+                <li><i>Ilex cookii</i></li>
+            </ul>
+        </div>
+
+        <!-- Araliaceae -->
+        <div id="Araliaceae" class="species-section">
+            <h2>Araliaceae</h2>
+            <ul class="species-list">
+                <li><i>Dendropanax laurifolius</i></li>
+                <li><i>Frodinia gleasonii</i></li>
+            </ul>
+        </div>
+
+        <!-- Arecaceae -->
+        <div id="Arecaceae" class="species-section">
+            <h2>Arecaceae</h2>
+            <ul class="species-list">
+                <li><i>Gaussia attenuata</i></li>
+            </ul>
+        </div>
+
+        <!-- Asteraceae -->
+        <div id="Asteraceae" class="species-section">
+            <h2>Asteraceae</h2>
+            <ul class="species-list">
+                <li><i>Critonia portoricensis</i></li>
+            </ul>
+        </div>
+
+        <!-- Bignoniaceae -->
+        <div id="Bignoniaceae" class="species-section">
+            <h2>Bignoniaceae</h2>
+            <ul class="species-list">
+                <li><i>Crescentia portoricensis</i></li>
+                <li><i>Tabebuia haemantha</i></li>
+                <li><i>Tabebuia karsoana</i></li>
+                <li><i>Tabebuia rigida</i></li>
+                <li><i>Tabebuia schumanniana</i></li>
+            </ul>
+        </div>
+
+        <!-- Boraginaceae -->
+        <div id="Boraginaceae" class="species-section">
+            <h2>Boraginaceae</h2>
+            <ul class="species-list">
+                <li><i>Cordia borinquensis</i></li>
+            </ul>
+        </div>
+
+        <!-- Buxaceae -->
+        <div id="Buxaceae" class="species-section">
+            <h2>Buxaceae</h2>
+            <ul class="species-list">
+                <li><i>Buxus portoricensis</i></li>
+            </ul>
+        </div>
+
+        <!-- Myrtaceae -->
+        <div id="Myrtaceae" class="species-section">
+            <h2>Myrtaceae</h2>
+            <ul class="species-list">
+                <li><i>Eugenia boqueronensis</i></li>
+                <li><i>Eugenia eggersii</i></li>
+                <li><i>Eugenia fajardensis</i></li>
+                <li><i>Psidium sintenisii</i></li>
+            </ul>
+        </div>
+
+    </div>
+
 </body>
 
 </html>
