@@ -1,214 +1,594 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Árboles Endémicos de Puerto Rico</title>
-    <link href="https://fonts.googleapis.com/css2?family=Uber+Move:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* RESET & BASE STYLES */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: url('background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            font-family: 'Uber Move', sans-serif;
-            text-align: center;
-        }
-
-        /* HEADER */
-        header {
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.8);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        h1 {
-            font-size: 2rem;
-        }
-
-        /* BUTTONS */
-        .family-buttons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 1rem 0;
-        }
-
-        .family-buttons button {
-            background: #444;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 1rem;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-
-        .family-buttons button:hover {
-            background: #666;
-        }
-
-        /* SPECIES CONTAINER */
-        .species-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            text-align: left;
-        }
-
-        .species-section {
-            margin: 1rem 0;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 8px;
-            display: none;
-        }
-
-        .species-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-
-        .species-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .species-list li {
-            font-size: 1.1rem;
-            margin: 5px 0;
-        }
-    </style>
-
-    <script>
-        function showFamily(familyId) {
-            let sections = document.querySelectorAll('.species-section');
-            sections.forEach(section => section.style.display = 'none');
-            
-            let selectedSection = document.getElementById(familyId);
-            if (selectedSection) {
-                selectedSection.style.display = 'block';
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Árboles Endémicos de Puerto Rico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Uber+Move:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* RESET & BASE STYLES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      font-family: 'Uber Move', sans-serif;
+      text-align: center;
+      padding-bottom: 2rem;
+    }
+    header {
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+    /* FAMILY BUTTONS */
+    .family-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 1rem;
+    }
+    .family-buttons button {
+      background: #444;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .family-buttons button:hover {
+      background: #666;
+    }
+    /* SPECIES SECTIONS */
+    .species-container {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .species-section {
+      margin: 1rem 0;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 8px;
+      display: none;
+    }
+    .species-section h2 {
+      text-align: center;
+      margin-bottom: 0.75rem;
+      font-size: 1.5rem;
+    }
+    .species-list {
+      list-style: none;
+      padding-left: 1rem;
+    }
+    .species-list li {
+      margin: 0.4rem 0;
+      font-size: 1.1rem;
+    }
+  </style>
+  <script>
+    function showFamily(familyId) {
+      // Hide all family sections
+      const sections = document.querySelectorAll('.species-section');
+      sections.forEach(section => section.style.display = 'none');
+      // Show the selected family section
+      const selected = document.getElementById(familyId);
+      if (selected) {
+        selected.style.display = 'block';
+      }
+    }
+  </script>
 </head>
-
 <body>
+  <!-- HEADER WITH BUTTONS -->
+  <header>
+    <h1>Árboles Endémicos de Puerto Rico</h1>
+    <div class="family-buttons">
+      <button onclick="showFamily('Apocynaceae')">Apocynaceae</button>
+      <button onclick="showFamily('Aquifoliaceae')">Aquifoliaceae</button>
+      <button onclick="showFamily('Araliaceae')">Araliaceae</button>
+      <button onclick="showFamily('Arecaceae')">Arecaceae</button>
+      <button onclick="showFamily('Asteraceae')">Asteraceae</button>
+      <button onclick="showFamily('Bignoniaceae')">Bignoniaceae</button>
+      <button onclick="showFamily('Boraginaceae')">Boraginaceae</button>
+      <button onclick="showFamily('Buxaceae')">Buxaceae</button>
+      <button onclick="showFamily('Canellaceae')">Canellaceae</button>
+      <button onclick="showFamily('Celastraceae')">Celastraceae</button>
+      <button onclick="showFamily('Chrysobalanaceae')">Chrysobalanaceae</button>
+      <button onclick="showFamily('Clusiaceae')">Clusiaceae</button>
+      <button onclick="showFamily('Ebenaceae')">Ebenaceae</button>
+      <button onclick="showFamily('Euphorbiaceae')">Euphorbiaceae</button>
+      <button onclick="showFamily('Fabaceae')">Fabaceae</button>
+      <button onclick="showFamily('Gesneriaceae')">Gesneriaceae</button>
+      <button onclick="showFamily('Lamiaceae')">Lamiaceae</button>
+      <button onclick="showFamily('Lauraceae')">Lauraceae</button>
+      <button onclick="showFamily('Magnoliaceae')">Magnoliaceae</button>
+      <button onclick="showFamily('Malpighiaceae')">Malpighiaceae</button>
+      <button onclick="showFamily('Malvaceae')">Malvaceae</button>
+      <button onclick="showFamily('Melastomataceae')">Melastomataceae</button>
+      <button onclick="showFamily('Meliaceae')">Meliaceae</button>
+      <button onclick="showFamily('Myricaceae')">Myricaceae</button>
+      <button onclick="showFamily('Myrtaceae')">Myrtaceae</button>
+      <button onclick="showFamily('Nyctaginaceae')">Nyctaginaceae</button>
+      <button onclick="showFamily('Oleaceae')">Oleaceae</button>
+      <button onclick="showFamily('Pentaphylacaceae')">Pentaphylacaceae</button>
+      <button onclick="showFamily('Phyllanthaceae')">Phyllanthaceae</button>
+      <button onclick="showFamily('Polygalaceae')">Polygalaceae</button>
+      <button onclick="showFamily('Polygonaceae')">Polygonaceae</button>
+      <button onclick="showFamily('Primulaceae')">Primulaceae</button>
+      <button onclick="showFamily('Rhamnaceae')">Rhamnaceae</button>
+      <button onclick="showFamily('Rubiaceae')">Rubiaceae</button>
+      <button onclick="showFamily('Rutaceae')">Rutaceae</button>
+      <button onclick="showFamily('Sabiaceae')">Sabiaceae</button>
+      <button onclick="showFamily('Salicaceae')">Salicaceae</button>
+      <button onclick="showFamily('Sapindaceae')">Sapindaceae</button>
+      <button onclick="showFamily('Sapotaceae')">Sapotaceae</button>
+      <button onclick="showFamily('Schoepfiaceae')">Schoepfiaceae</button>
+      <button onclick="showFamily('Simaroubaceae')">Simaroubaceae</button>
+      <button onclick="showFamily('Solanaceae')">Solanaceae</button>
+      <button onclick="showFamily('Styracaceae')">Styracaceae</button>
+      <button onclick="showFamily('Symplocaceae')">Symplocaceae</button>
+      <button onclick="showFamily('Thymelaeaceae')">Thymelaeaceae</button>
+      <button onclick="showFamily('Urticaceae')">Urticaceae</button>
+    </div>
+  </header>
 
-    <!-- HEADER -->
-    <header>
-        <h1>Árboles Endémicos de Puerto Rico</h1>
-        <div class="family-buttons">
-            <button onclick="showFamily('Apocynaceae')">Apocynaceae</button>
-            <button onclick="showFamily('Aquifoliaceae')">Aquifoliaceae</button>
-            <button onclick="showFamily('Araliaceae')">Araliaceae</button>
-            <button onclick="showFamily('Arecaceae')">Arecaceae</button>
-            <button onclick="showFamily('Asteraceae')">Asteraceae</button>
-            <button onclick="showFamily('Bignoniaceae')">Bignoniaceae</button>
-            <button onclick="showFamily('Boraginaceae')">Boraginaceae</button>
-            <button onclick="showFamily('Buxaceae')">Buxaceae</button>
-            <button onclick="showFamily('Myrtaceae')">Myrtaceae</button>
-        </div>
-    </header>
-
-    <!-- SPECIES LIST -->
-    <div class="species-container">
-        
-        <!-- Apocynaceae -->
-        <div id="Apocynaceae" class="species-section">
-            <h2>Apocynaceae</h2>
-            <ul class="species-list">
-                <li><i>Plumeria krugii</i></li>
-                <li><i>Tabernaemontana oppositifolia</i></li>
-            </ul>
-        </div>
-
-        <!-- Aquifoliaceae -->
-        <div id="Aquifoliaceae" class="species-section">
-            <h2>Aquifoliaceae</h2>
-            <ul class="species-list">
-                <li><i>Ilex cookii</i></li>
-            </ul>
-        </div>
-
-        <!-- Araliaceae -->
-        <div id="Araliaceae" class="species-section">
-            <h2>Araliaceae</h2>
-            <ul class="species-list">
-                <li><i>Dendropanax laurifolius</i></li>
-                <li><i>Frodinia gleasonii</i></li>
-            </ul>
-        </div>
-
-        <!-- Arecaceae -->
-        <div id="Arecaceae" class="species-section">
-            <h2>Arecaceae</h2>
-            <ul class="species-list">
-                <li><i>Gaussia attenuata</i></li>
-            </ul>
-        </div>
-
-        <!-- Asteraceae -->
-        <div id="Asteraceae" class="species-section">
-            <h2>Asteraceae</h2>
-            <ul class="species-list">
-                <li><i>Critonia portoricensis</i></li>
-            </ul>
-        </div>
-
-        <!-- Bignoniaceae -->
-        <div id="Bignoniaceae" class="species-section">
-            <h2>Bignoniaceae</h2>
-            <ul class="species-list">
-                <li><i>Crescentia portoricensis</i></li>
-                <li><i>Tabebuia haemantha</i></li>
-                <li><i>Tabebuia karsoana</i></li>
-                <li><i>Tabebuia rigida</i></li>
-                <li><i>Tabebuia schumanniana</i></li>
-            </ul>
-        </div>
-
-        <!-- Boraginaceae -->
-        <div id="Boraginaceae" class="species-section">
-            <h2>Boraginaceae</h2>
-            <ul class="species-list">
-                <li><i>Cordia borinquensis</i></li>
-            </ul>
-        </div>
-
-        <!-- Buxaceae -->
-        <div id="Buxaceae" class="species-section">
-            <h2>Buxaceae</h2>
-            <ul class="species-list">
-                <li><i>Buxus portoricensis</i></li>
-            </ul>
-        </div>
-
-        <!-- Myrtaceae -->
-        <div id="Myrtaceae" class="species-section">
-            <h2>Myrtaceae</h2>
-            <ul class="species-list">
-                <li><i>Eugenia boqueronensis</i></li>
-                <li><i>Eugenia eggersii</i></li>
-                <li><i>Eugenia fajardensis</i></li>
-                <li><i>Psidium sintenisii</i></li>
-            </ul>
-        </div>
-
+  <!-- SPECIES SECTIONS -->
+  <div class="species-container">
+    <!-- Apocynaceae -->
+    <div id="Apocynaceae" class="species-section">
+      <h2>Apocynaceae</h2>
+      <ul class="species-list">
+        <li>Plumeria krugii</li>
+        <li>Tabernaemontana oppositifolia</li>
+      </ul>
     </div>
 
-</body>
+    <!-- Aquifoliaceae -->
+    <div id="Aquifoliaceae" class="species-section">
+      <h2>Aquifoliaceae</h2>
+      <ul class="species-list">
+        <li>Ilex cookii</li>
+      </ul>
+    </div>
 
+    <!-- Araliaceae -->
+    <div id="Araliaceae" class="species-section">
+      <h2>Araliaceae</h2>
+      <ul class="species-list">
+        <li>Dendropanax laurifolius</li>
+        <li>Frodinia gleasonii</li>
+      </ul>
+    </div>
+
+    <!-- Arecaceae -->
+    <div id="Arecaceae" class="species-section">
+      <h2>Arecaceae</h2>
+      <ul class="species-list">
+        <li>Gaussia attenuata</li>
+      </ul>
+    </div>
+
+    <!-- Asteraceae -->
+    <div id="Asteraceae" class="species-section">
+      <h2>Asteraceae</h2>
+      <ul class="species-list">
+        <li>Critonia portoricensis</li>
+      </ul>
+    </div>
+
+    <!-- Bignoniaceae -->
+    <div id="Bignoniaceae" class="species-section">
+      <h2>Bignoniaceae</h2>
+      <ul class="species-list">
+        <li>Crescentia portoricensis</li>
+        <li>Tabebuia haemantha</li>
+        <li>Tabebuia karsoana</li>
+        <li>Tabebuia rigida</li>
+        <li>Tabebuia schumanniana</li>
+      </ul>
+    </div>
+
+    <!-- Boraginaceae -->
+    <div id="Boraginaceae" class="species-section">
+      <h2>Boraginaceae</h2>
+      <ul class="species-list">
+        <li>Cordia borinquensis</li>
+      </ul>
+    </div>
+
+    <!-- Buxaceae -->
+    <div id="Buxaceae" class="species-section">
+      <h2>Buxaceae</h2>
+      <ul class="species-list">
+        <li>Buxus portoricensis</li>
+      </ul>
+    </div>
+
+    <!-- Canellaceae -->
+    <div id="Canellaceae" class="species-section">
+      <h2>Canellaceae</h2>
+      <ul class="species-list">
+        <li>Pleodendron macranthum</li>
+      </ul>
+    </div>
+
+    <!-- Celastraceae -->
+    <div id="Celastraceae" class="species-section">
+      <h2>Celastraceae</h2>
+      <ul class="species-list">
+        <li>Monteverdia elongata</li>
+        <li>Monteverdia ponceana</li>
+      </ul>
+    </div>
+
+    <!-- Chrysobalanaceae -->
+    <div id="Chrysobalanaceae" class="species-section">
+      <h2>Chrysobalanaceae</h2>
+      <ul class="species-list">
+        <li>Hirtella rugosa</li>
+      </ul>
+    </div>
+
+    <!-- Clusiaceae -->
+    <div id="Clusiaceae" class="species-section">
+      <h2>Clusiaceae</h2>
+      <ul class="species-list">
+        <li>Clusia gundlachii</li>
+        <li>Garcinia hessii</li>
+        <li>Garcinia portoricensis</li>
+      </ul>
+    </div>
+
+    <!-- Ebenaceae -->
+    <div id="Ebenaceae" class="species-section">
+      <h2>Ebenaceae</h2>
+      <ul class="species-list">
+        <li>Diospyros sintenisii</li>
+      </ul>
+    </div>
+
+    <!-- Euphorbiaceae -->
+    <div id="Euphorbiaceae" class="species-section">
+      <h2>Euphorbiaceae</h2>
+      <ul class="species-list">
+        <li>Croton poecilanthus</li>
+        <li>Sapium laurocerasus</li>
+      </ul>
+    </div>
+
+    <!-- Fabaceae -->
+    <div id="Fabaceae" class="species-section">
+      <h2>Fabaceae</h2>
+      <ul class="species-list">
+        <li>Caesalpinia monensis</li>
+        <li>Poitea punicea</li>
+      </ul>
+    </div>
+
+    <!-- Gesneriaceae -->
+    <div id="Gesneriaceae" class="species-section">
+      <h2>Gesneriaceae</h2>
+      <ul class="species-list">
+        <li>Gesneria pedunculosa</li>
+      </ul>
+    </div>
+
+    <!-- Lamiaceae -->
+    <div id="Lamiaceae" class="species-section">
+      <h2>Lamiaceae</h2>
+      <ul class="species-list">
+        <li>Cornutia obovata</li>
+      </ul>
+    </div>
+
+    <!-- Lauraceae -->
+    <div id="Lauraceae" class="species-section">
+      <h2>Lauraceae</h2>
+      <ul class="species-list">
+        <li>Ocotea moschata</li>
+        <li>Ocotea portoricensis</li>
+      </ul>
+    </div>
+
+    <!-- Magnoliaceae -->
+    <div id="Magnoliaceae" class="species-section">
+      <h2>Magnoliaceae</h2>
+      <ul class="species-list">
+        <li>Magnolia portoricensis</li>
+        <li>Magnolia splendens</li>
+      </ul>
+    </div>
+
+    <!-- Malpighiaceae -->
+    <div id="Malpighiaceae" class="species-section">
+      <h2>Malpighiaceae</h2>
+      <ul class="species-list">
+        <li>Byrsonima wadsworthii</li>
+      </ul>
+    </div>
+
+    <!-- Malvaceae -->
+    <div id="Malvaceae" class="species-section">
+      <h2>Malvaceae</h2>
+      <ul class="species-list">
+        <li>Thespesia grandiflora</li>
+      </ul>
+    </div>
+
+    <!-- Melastomataceae -->
+    <div id="Melastomataceae" class="species-section">
+      <h2>Melastomataceae</h2>
+      <ul class="species-list">
+        <li>Henriettea membranifolia</li>
+        <li>Henriettea sessilifolia</li>
+        <li>Henriettea squamulosa</li>
+        <li>Miconia biflora</li>
+        <li>Miconia borinquensis</li>
+        <li>Miconia foveolata</li>
+        <li>Miconia krugiana</li>
+        <li>Miconia laevigata</li>
+        <li>Miconia pachyphylla</li>
+        <li>Miconia pycnoneura</li>
+        <li>Miconia sintenisii</li>
+        <li>Miconia urbanii</li>
+      </ul>
+    </div>
+
+    <!-- Meliaceae -->
+    <div id="Meliaceae" class="species-section">
+      <h2>Meliaceae</h2>
+      <ul class="species-list">
+        <li>Trichilia triacantha</li>
+      </ul>
+    </div>
+
+    <!-- Myricaceae -->
+    <div id="Myricaceae" class="species-section">
+      <h2>Myricaceae</h2>
+      <ul class="species-list">
+        <li>Morella holdridgeana</li>
+      </ul>
+    </div>
+
+    <!-- Myrtaceae -->
+    <div id="Myrtaceae" class="species-section">
+      <h2>Myrtaceae</h2>
+      <ul class="species-list">
+        <li>Eugenia boqueronensis</li>
+        <li>Eugenia eggersii</li>
+        <li>Eugenia fajardensis</li>
+        <li>Eugenia haematocarpa</li>
+        <li>Eugenia padronii</li>
+        <li>Eugenia serrasuela</li>
+        <li>Eugenia stahlii</li>
+        <li>Eugenia stewardsonii</li>
+        <li>Eugenia woodburyana</li>
+        <li>Myrcia estremerae</li>
+        <li>Myrcia krugii</li>
+        <li>Myrcia luquillensis</li>
+        <li>Myrcia peduncularis</li>
+        <li>Myrcia portoricensis</li>
+        <li>Myrcia sintenisiana</li>
+        <li>Myrcia woodburyi</li>
+        <li>Myrciaria borinquena</li>
+        <li>Myrciaria myrtifolia</li>
+        <li>Pimenta paganii</li>
+        <li>Psidium calyptranthoides</li>
+        <li>Psidium sintenisii</li>
+      </ul>
+    </div>
+
+    <!-- Nyctaginaceae -->
+    <div id="Nyctaginaceae" class="species-section">
+      <h2>Nyctaginaceae</h2>
+      <ul class="species-list">
+        <li>Pisonia horneae</li>
+        <li>Pisonia roqueae</li>
+        <li>Pisonia taina</li>
+      </ul>
+    </div>
+
+    <!-- Oleaceae -->
+    <div id="Oleaceae" class="species-section">
+      <h2>Oleaceae</h2>
+      <ul class="species-list">
+        <li>Chionanthus holdridgii</li>
+      </ul>
+    </div>
+
+    <!-- Pentaphylacaceae -->
+    <div id="Pentaphylacaceae" class="species-section">
+      <h2>Pentaphylacaceae</h2>
+      <ul class="species-list">
+        <li>Ternstroemia heptasepala</li>
+        <li>Ternstroemia luquillensis</li>
+        <li>Ternstroemia stahlii</li>
+        <li>Ternstroemia subsessilis</li>
+      </ul>
+    </div>
+
+    <!-- Phyllanthaceae -->
+    <div id="Phyllanthaceae" class="species-section">
+      <h2>Phyllanthaceae</h2>
+      <ul class="species-list">
+        <li>Hieronyma clusioides</li>
+        <li>Phyllanthus cuneifolius</li>
+      </ul>
+    </div>
+
+    <!-- Polygalaceae -->
+    <div id="Polygalaceae" class="species-section">
+      <h2>Polygalaceae</h2>
+      <ul class="species-list">
+        <li>Phlebotaenia cowellii</li>
+      </ul>
+    </div>
+
+    <!-- Polygonaceae -->
+    <div id="Polygonaceae" class="species-section">
+      <h2>Polygonaceae</h2>
+      <ul class="species-list">
+        <li>Coccoloba rugosa</li>
+        <li>Coccoloba sintenisii</li>
+      </ul>
+    </div>
+
+    <!-- Primulaceae -->
+    <div id="Primulaceae" class="species-section">
+      <h2>Primulaceae</h2>
+      <ul class="species-list">
+        <li>Ardisia glauciflora</li>
+        <li>Ardisia luquillensis</li>
+        <li>Cybianthus sintenisii</li>
+      </ul>
+    </div>
+
+    <!-- Rhamnaceae -->
+    <div id="Rhamnaceae" class="species-section">
+      <h2>Rhamnaceae</h2>
+      <ul class="species-list">
+        <li>Auerodendron pauciflorum</li>
+        <li>Reynosia krugii</li>
+        <li>Reynosia vivesiana</li>
+      </ul>
+    </div>
+
+    <!-- Rubiaceae -->
+    <div id="Rubiaceae" class="species-section">
+      <h2>Rubiaceae</h2>
+      <ul class="species-list">
+        <li>Machaonia portoricensis</li>
+        <li>Phialanthus grandifolius</li>
+        <li>Psychotria maleolens</li>
+        <li>Psychotria maricaensis</li>
+        <li>Rondeletia inermis</li>
+        <li>Rondeletia portoricensis</li>
+        <li>Stenostomum obtusifolium</li>
+        <li>Stenostomum portoricense</li>
+        <li>Stenostomum sintenisii</li>
+      </ul>
+    </div>
+
+    <!-- Rutaceae -->
+    <div id="Rutaceae" class="species-section">
+      <h2>Rutaceae</h2>
+      <ul class="species-list">
+        <li>Ravenia urbani</li>
+      </ul>
+    </div>
+
+    <!-- Sabiaceae -->
+    <div id="Sabiaceae" class="species-section">
+      <h2>Sabiaceae</h2>
+      <ul class="species-list">
+        <li>Meliosma obtusifolia</li>
+      </ul>
+    </div>
+
+    <!-- Salicaceae -->
+    <div id="Salicaceae" class="species-section">
+      <h2>Salicaceae</h2>
+      <ul class="species-list">
+        <li>Banara portoricensis</li>
+        <li>Banara vanderbiltii</li>
+        <li>Xylosma pachyphylla</li>
+        <li>Xylosma schwaneckeana</li>
+      </ul>
+    </div>
+
+    <!-- Sapindaceae -->
+    <div id="Sapindaceae" class="species-section">
+      <h2>Sapindaceae</h2>
+      <ul class="species-list">
+        <li>Thouinia striata</li>
+      </ul>
+    </div>
+
+    <!-- Sapotaceae -->
+    <div id="Sapotaceae" class="species-section">
+      <h2>Sapotaceae</h2>
+      <ul class="species-list">
+        <li>Manilkara pleeana</li>
+        <li>Micropholis garciniifolia</li>
+        <li>Pouteria multiflora</li>
+      </ul>
+    </div>
+
+    <!-- Schoepfiaceae -->
+    <div id="Schoepfiaceae" class="species-section">
+      <h2>Schoepfiaceae</h2>
+      <ul class="species-list">
+        <li>Schoepfia arenaria</li>
+      </ul>
+    </div>
+
+    <!-- Simaroubaceae -->
+    <div id="Simaroubaceae" class="species-section">
+      <h2>Simaroubaceae</h2>
+      <ul class="species-list">
+        <li>Simarouba tulae</li>
+      </ul>
+    </div>
+
+    <!-- Solanaceae -->
+    <div id="Solanaceae" class="species-section">
+      <h2>Solanaceae</h2>
+      <ul class="species-list">
+        <li>Brunfelsia densifolia</li>
+        <li>Brunfelsia lactea</li>
+        <li>Brunfelsia portoricensis</li>
+        <li>Goetzea elegans</li>
+        <li>Solanum ensifolium</li>
+      </ul>
+    </div>
+
+    <!-- Styracaceae -->
+    <div id="Styracaceae" class="species-section">
+      <h2>Styracaceae</h2>
+      <ul class="species-list">
+        <li>Styrax portoricensis</li>
+      </ul>
+    </div>
+
+    <!-- Symplocaceae -->
+    <div id="Symplocaceae" class="species-section">
+      <h2>Symplocaceae</h2>
+      <ul class="species-list">
+        <li>Symplocos lanata</li>
+        <li>Symplocos micrantha</li>
+      </ul>
+    </div>
+
+    <!-- Thymelaeaceae -->
+    <div id="Thymelaeaceae" class="species-section">
+      <h2>Thymelaeaceae</h2>
+      <ul class="species-list">
+        <li>Daphnopsis helleriana</li>
+        <li>Daphnopsis philippiana</li>
+      </ul>
+    </div>
+
+    <!-- Urticaceae -->
+    <div id="Urticaceae" class="species-section">
+      <h2>Urticaceae</h2>
+      <ul class="species-list">
+        <li>Urera chlorocarpa</li>
+      </ul>
+    </div>
+  </div>
+</body>
 </html>
