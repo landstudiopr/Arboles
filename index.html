@@ -6,18 +6,31 @@
   <title>Plantas Seleccionadas</title>
   <link href="https://fonts.googleapis.com/css2?family=Uber+Move:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Reset y estilos base */
+    /* RESET y estilos base */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+    /* Background with overlay */
     body {
+      position: relative;
       background: url('ceiba.jpg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Uber Move', sans-serif;
       color: #fff;
       padding-bottom: 2rem;
+    }
+    /* Dark overlay to dim the background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5); /* Adjust opacity as needed */
+      z-index: -1;
     }
     header {
       padding: 1.5rem;
@@ -39,7 +52,7 @@
       border: none;
       cursor: pointer;
     }
-    /* Secciones y layout de tarjetas */
+    /* Main and section styles */
     main {
       max-width: 1200px;
       margin: 0 auto;
@@ -48,7 +61,7 @@
     section {
       margin: 2rem 0;
       padding: 1rem;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.7);
       border-radius: 8px;
     }
     section h2 {
@@ -56,6 +69,7 @@
       margin-bottom: 1rem;
       font-size: 1.8rem;
     }
+    /* Cards layout */
     .cards-container {
       display: grid;
       grid-template-columns: 1fr;
@@ -78,6 +92,7 @@
       background-color: #222;
       height: 300px;
       cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.8);
     }
     .card img {
       width: 100%;
@@ -89,7 +104,7 @@
       bottom: 0;
       width: 100%;
       padding: 0.75rem 1rem;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.75);
       text-align: center;
     }
     .card-title {
