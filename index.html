@@ -31,46 +31,32 @@
       margin-bottom: 1rem;
       font-size: 2rem;
     }
-    /* BOTONES DE FAMILIA */
-    .family-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 1rem;
-    }
-    .family-buttons button {
-      background: #444;
-      color: #fff;
-      border: none;
+    /* DROPDOWN MENU */
+    #familySelect {
       padding: 8px 12px;
-      font-size: 0.9rem;
+      font-size: 1rem;
       border-radius: 4px;
+      border: none;
       cursor: pointer;
-      transition: background 0.3s;
     }
-    .family-buttons button:hover {
-      background: #666;
-    }
-    /* SECCIÓN DE ESPECIES */
-    .species-container {
+    /* MAIN & SECTIONS */
+    main {
       max-width: 1200px;
       margin: 0 auto;
       padding: 1rem;
     }
-    .species-section {
-      margin: 1rem 0;
+    section {
+      margin: 2rem 0;
       padding: 1rem;
       background: rgba(0, 0, 0, 0.6);
       border-radius: 8px;
-      display: none;
     }
-    .species-section h2 {
+    section h2 {
       text-align: center;
       margin-bottom: 1rem;
       font-size: 1.8rem;
     }
-    /* LAYOUT DE TARJETAS */
+    /* CARDS LAYOUT */
     .cards-container {
       display: grid;
       grid-template-columns: 1fr;
@@ -111,1120 +97,1247 @@
       font-size: 1.2rem;
       font-weight: 600;
     }
+    .card-subtitle {
+      font-size: 1rem;
+      font-style: italic;
+      opacity: 0.85;
+    }
   </style>
   <script>
-    function showFamily(familyId) {
-      // Oculta todas las secciones de especies
-      var sections = document.querySelectorAll('.species-section');
-      sections.forEach(function(section) {
-        section.style.display = 'none';
-      });
-      // Muestra la sección seleccionada
-      var selected = document.getElementById(familyId);
-      if(selected) {
-        selected.style.display = 'block';
+    function scrollToFamily() {
+      var select = document.getElementById("familySelect");
+      var family = select.value;
+      if(family === "Todos"){
+         window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+         var element = document.getElementById(family);
+         if(element){
+             element.scrollIntoView({ behavior: "smooth" });
+         }
       }
     }
   </script>
 </head>
 <body>
-  <!-- ENCABEZADO CON BOTONES -->
+  <!-- ENCABEZADO CON DROPDOWN -->
   <header>
     <h1>Árboles Endémicos de Puerto Rico</h1>
-    <div class="family-buttons">
-      <button onclick="showFamily('Apocynaceae')">Apocynaceae</button>
-      <button onclick="showFamily('Aquifoliaceae')">Aquifoliaceae</button>
-      <button onclick="showFamily('Araliaceae')">Araliaceae</button>
-      <button onclick="showFamily('Arecaceae')">Arecaceae</button>
-      <button onclick="showFamily('Asteraceae')">Asteraceae</button>
-      <button onclick="showFamily('Bignoniaceae')">Bignoniaceae</button>
-      <button onclick="showFamily('Boraginaceae')">Boraginaceae</button>
-      <button onclick="showFamily('Buxaceae')">Buxaceae</button>
-      <button onclick="showFamily('Canellaceae')">Canellaceae</button>
-      <button onclick="showFamily('Celastraceae')">Celastraceae</button>
-      <button onclick="showFamily('Chrysobalanaceae')">Chrysobalanaceae</button>
-      <button onclick="showFamily('Clusiaceae')">Clusiaceae</button>
-      <button onclick="showFamily('Ebenaceae')">Ebenaceae</button>
-      <button onclick="showFamily('Euphorbiaceae')">Euphorbiaceae</button>
-      <button onclick="showFamily('Fabaceae')">Fabaceae</button>
-      <button onclick="showFamily('Gesneriaceae')">Gesneriaceae</button>
-      <button onclick="showFamily('Lamiaceae')">Lamiaceae</button>
-      <button onclick="showFamily('Lauraceae')">Lauraceae</button>
-      <button onclick="showFamily('Magnoliaceae')">Magnoliaceae</button>
-      <button onclick="showFamily('Malpighiaceae')">Malpighiaceae</button>
-      <button onclick="showFamily('Malvaceae')">Malvaceae</button>
-      <button onclick="showFamily('Melastomataceae')">Melastomataceae</button>
-      <button onclick="showFamily('Meliaceae')">Meliaceae</button>
-      <button onclick="showFamily('Myricaceae')">Myricaceae</button>
-      <button onclick="showFamily('Myrtaceae')">Myrtaceae</button>
-      <button onclick="showFamily('Nyctaginaceae')">Nyctaginaceae</button>
-      <button onclick="showFamily('Oleaceae')">Oleaceae</button>
-      <button onclick="showFamily('Pentaphylacaceae')">Pentaphylacaceae</button>
-      <button onclick="showFamily('Phyllanthaceae')">Phyllanthaceae</button>
-      <button onclick="showFamily('Polygalaceae')">Polygalaceae</button>
-      <button onclick="showFamily('Polygonaceae')">Polygonaceae</button>
-      <button onclick="showFamily('Primulaceae')">Primulaceae</button>
-      <button onclick="showFamily('Rhamnaceae')">Rhamnaceae</button>
-      <button onclick="showFamily('Rubiaceae')">Rubiaceae</button>
-      <button onclick="showFamily('Rutaceae')">Rutaceae</button>
-      <button onclick="showFamily('Sabiaceae')">Sabiaceae</button>
-      <button onclick="showFamily('Salicaceae')">Salicaceae</button>
-      <button onclick="showFamily('Sapindaceae')">Sapindaceae</button>
-      <button onclick="showFamily('Sapotaceae')">Sapotaceae</button>
-      <button onclick="showFamily('Schoepfiaceae')">Schoepfiaceae</button>
-      <button onclick="showFamily('Simaroubaceae')">Simaroubaceae</button>
-      <button onclick="showFamily('Solanaceae')">Solanaceae</button>
-      <button onclick="showFamily('Styracaceae')">Styracaceae</button>
-      <button onclick="showFamily('Symplocaceae')">Symplocaceae</button>
-      <button onclick="showFamily('Thymelaeaceae')">Thymelaeaceae</button>
-      <button onclick="showFamily('Urticaceae')">Urticaceae</button>
-    </div>
+    <select id="familySelect" onchange="scrollToFamily()">
+      <option value="Todos">Seleccionar familia</option>
+      <option value="Apocynaceae">Apocynaceae</option>
+      <option value="Aquifoliaceae">Aquifoliaceae</option>
+      <option value="Araliaceae">Araliaceae</option>
+      <option value="Arecaceae">Arecaceae</option>
+      <option value="Asteraceae">Asteraceae</option>
+      <option value="Bignoniaceae">Bignoniaceae</option>
+      <option value="Boraginaceae">Boraginaceae</option>
+      <option value="Buxaceae">Buxaceae</option>
+      <option value="Canellaceae">Canellaceae</option>
+      <option value="Celastraceae">Celastraceae</option>
+      <option value="Chrysobalanaceae">Chrysobalanaceae</option>
+      <option value="Clusiaceae">Clusiaceae</option>
+      <option value="Ebenaceae">Ebenaceae</option>
+      <option value="Euphorbiaceae">Euphorbiaceae</option>
+      <option value="Fabaceae">Fabaceae</option>
+      <option value="Gesneriaceae">Gesneriaceae</option>
+      <option value="Lamiaceae">Lamiaceae</option>
+      <option value="Lauraceae">Lauraceae</option>
+      <option value="Magnoliaceae">Magnoliaceae</option>
+      <option value="Malpighiaceae">Malpighiaceae</option>
+      <option value="Malvaceae">Malvaceae</option>
+      <option value="Melastomataceae">Melastomataceae</option>
+      <option value="Meliaceae">Meliaceae</option>
+      <option value="Myricaceae">Myricaceae</option>
+      <option value="Myrtaceae">Myrtaceae</option>
+      <option value="Nyctaginaceae">Nyctaginaceae</option>
+      <option value="Oleaceae">Oleaceae</option>
+      <option value="Pentaphylacaceae">Pentaphylacaceae</option>
+      <option value="Phyllanthaceae">Phyllanthaceae</option>
+      <option value="Polygalaceae">Polygalaceae</option>
+      <option value="Polygonaceae">Polygonaceae</option>
+      <option value="Primulaceae">Primulaceae</option>
+      <option value="Rhamnaceae">Rhamnaceae</option>
+      <option value="Rubiaceae">Rubiaceae</option>
+      <option value="Rutaceae">Rutaceae</option>
+      <option value="Sabiaceae">Sabiaceae</option>
+      <option value="Salicaceae">Salicaceae</option>
+      <option value="Sapindaceae">Sapindaceae</option>
+      <option value="Sapotaceae">Sapotaceae</option>
+      <option value="Schoepfiaceae">Schoepfiaceae</option>
+      <option value="Simaroubaceae">Simaroubaceae</option>
+      <option value="Solanaceae">Solanaceae</option>
+      <option value="Styracaceae">Styracaceae</option>
+      <option value="Symplocaceae">Symplocaceae</option>
+      <option value="Thymelaeaceae">Thymelaeaceae</option>
+      <option value="Urticaceae">Urticaceae</option>
+    </select>
   </header>
 
-  <!-- CONTENEDOR DE ESPECIES -->
-  <div class="species-container">
+  <main>
+    <!-- Cada sección a continuación contiene las tarjetas (cards) de cada familia. 
+         Los números “sig” en las URLs de las imágenes se incrementan para obtener imágenes diferentes. -->
+
     <!-- Apocynaceae -->
-    <div id="Apocynaceae" class="species-section">
+    <section id="Apocynaceae">
       <h2>Apocynaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Plumeria krugii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=1" alt="Plumeria krugii">
           <div class="card-content">
-            <div class="card-title">Plumeria krugii</div>
+            <div class="card-title">Flor de Plumeria</div>
+            <div class="card-subtitle"><i>Plumeria krugii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Tabernaemontana oppositifolia">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=2" alt="Tabernaemontana oppositifolia">
           <div class="card-content">
-            <div class="card-title">Tabernaemontana oppositifolia</div>
+            <div class="card-title">Jazmín de la Montaña</div>
+            <div class="card-subtitle"><i>Tabernaemontana oppositifolia</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Aquifoliaceae -->
-    <div id="Aquifoliaceae" class="species-section">
+    <section id="Aquifoliaceae">
       <h2>Aquifoliaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Ilex cookii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=3" alt="Ilex cookii">
           <div class="card-content">
-            <div class="card-title">Ilex cookii</div>
+            <div class="card-title">Acebo de Cook</div>
+            <div class="card-subtitle"><i>Ilex cookii</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Araliaceae -->
-    <div id="Araliaceae" class="species-section">
+    <section id="Araliaceae">
       <h2>Araliaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Dendropanax laurifolius">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=4" alt="Dendropanax laurifolius">
           <div class="card-content">
-            <div class="card-title">Dendropanax laurifolius</div>
+            <div class="card-title">Laurel de Dendropanax</div>
+            <div class="card-subtitle"><i>Dendropanax laurifolius</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Frodinia gleasonii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=5" alt="Frodinia gleasonii">
           <div class="card-content">
-            <div class="card-title">Frodinia gleasonii</div>
+            <div class="card-title">Frodinia</div>
+            <div class="card-subtitle"><i>Frodinia gleasonii</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Arecaceae -->
-    <div id="Arecaceae" class="species-section">
+    <section id="Arecaceae">
       <h2>Arecaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Gaussia attenuata">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=6" alt="Gaussia attenuata">
           <div class="card-content">
-            <div class="card-title">Gaussia attenuata</div>
+            <div class="card-title">Palma Atenuada</div>
+            <div class="card-subtitle"><i>Gaussia attenuata</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Asteraceae -->
-    <div id="Asteraceae" class="species-section">
+    <section id="Asteraceae">
       <h2>Asteraceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Critonia portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=7" alt="Critonia portoricensis">
           <div class="card-content">
-            <div class="card-title">Critonia portoricensis</div>
+            <div class="card-title">Critonia Puertorriqueña</div>
+            <div class="card-subtitle"><i>Critonia portoricensis</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Bignoniaceae -->
-    <div id="Bignoniaceae" class="species-section">
+    <section id="Bignoniaceae">
       <h2>Bignoniaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Crescentia portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=8" alt="Crescentia portoricensis">
           <div class="card-content">
-            <div class="card-title">Crescentia portoricensis</div>
+            <div class="card-title">Calabaza de Puerto Rico</div>
+            <div class="card-subtitle"><i>Crescentia portoricensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Tabebuia haemantha">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=9" alt="Tabebuia haemantha">
           <div class="card-content">
-            <div class="card-title">Tabebuia haemantha</div>
+            <div class="card-title">Tabebuia Roja</div>
+            <div class="card-subtitle"><i>Tabebuia haemantha</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Tabebuia karsoana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=10" alt="Tabebuia karsoana">
           <div class="card-content">
-            <div class="card-title">Tabebuia karsoana</div>
+            <div class="card-title">Tabebuia Karsoana</div>
+            <div class="card-subtitle"><i>Tabebuia karsoana</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Tabebuia rigida">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=11" alt="Tabebuia rigida">
           <div class="card-content">
-            <div class="card-title">Tabebuia rigida</div>
+            <div class="card-title">Tabebuia Rígida</div>
+            <div class="card-subtitle"><i>Tabebuia rigida</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Tabebuia schumanniana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=12" alt="Tabebuia schumanniana">
           <div class="card-content">
-            <div class="card-title">Tabebuia schumanniana</div>
+            <div class="card-title">Tabebuia Schumanniana</div>
+            <div class="card-subtitle"><i>Tabebuia schumanniana</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Boraginaceae -->
-    <div id="Boraginaceae" class="species-section">
+    <section id="Boraginaceae">
       <h2>Boraginaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Cordia borinquensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=13" alt="Cordia borinquensis">
           <div class="card-content">
-            <div class="card-title">Cordia borinquensis</div>
+            <div class="card-title">Cordia de Borinquen</div>
+            <div class="card-subtitle"><i>Cordia borinquensis</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Buxaceae -->
-    <div id="Buxaceae" class="species-section">
+    <section id="Buxaceae">
       <h2>Buxaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Buxus portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=14" alt="Buxus portoricensis">
           <div class="card-content">
-            <div class="card-title">Buxus portoricensis</div>
+            <div class="card-title">Boj de Puerto Rico</div>
+            <div class="card-subtitle"><i>Buxus portoricensis</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Canellaceae -->
-    <div id="Canellaceae" class="species-section">
+    <section id="Canellaceae">
       <h2>Canellaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Pleodendron macranthum">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=15" alt="Pleodendron macranthum">
           <div class="card-content">
-            <div class="card-title">Pleodendron macranthum</div>
+            <div class="card-title">Pleodendron Macranthum</div>
+            <div class="card-subtitle"><i>Pleodendron macranthum</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Celastraceae -->
-    <div id="Celastraceae" class="species-section">
+    <section id="Celastraceae">
       <h2>Celastraceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Monteverdia elongata">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=16" alt="Monteverdia elongata">
           <div class="card-content">
-            <div class="card-title">Monteverdia elongata</div>
+            <div class="card-title">Monteverdia Alargada</div>
+            <div class="card-subtitle"><i>Monteverdia elongata</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Monteverdia ponceana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=17" alt="Monteverdia ponceana">
           <div class="card-content">
-            <div class="card-title">Monteverdia ponceana</div>
+            <div class="card-title">Monteverdia de Ponce</div>
+            <div class="card-subtitle"><i>Monteverdia ponceana</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Chrysobalanaceae -->
-    <div id="Chrysobalanaceae" class="species-section">
+    <section id="Chrysobalanaceae">
       <h2>Chrysobalanaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Hirtella rugosa">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=18" alt="Hirtella rugosa">
           <div class="card-content">
-            <div class="card-title">Hirtella rugosa</div>
+            <div class="card-title">Hirtella Rugosa</div>
+            <div class="card-subtitle"><i>Hirtella rugosa</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Clusiaceae -->
-    <div id="Clusiaceae" class="species-section">
+    <section id="Clusiaceae">
       <h2>Clusiaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Clusia gundlachii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=19" alt="Clusia gundlachii">
           <div class="card-content">
-            <div class="card-title">Clusia gundlachii</div>
+            <div class="card-title">Clusia de Gundlach</div>
+            <div class="card-subtitle"><i>Clusia gundlachii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Garcinia hessii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=20" alt="Garcinia hessii">
           <div class="card-content">
-            <div class="card-title">Garcinia hessii</div>
+            <div class="card-title">Garcinia de Hess</div>
+            <div class="card-subtitle"><i>Garcinia hessii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Garcinia portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=21" alt="Garcinia portoricensis">
           <div class="card-content">
-            <div class="card-title">Garcinia portoricensis</div>
+            <div class="card-title">Garcinia Puertorriqueña</div>
+            <div class="card-subtitle"><i>Garcinia portoricensis</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Ebenaceae -->
-    <div id="Ebenaceae" class="species-section">
+    <section id="Ebenaceae">
       <h2>Ebenaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Diospyros sintenisii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=22" alt="Diospyros sintenisii">
           <div class="card-content">
-            <div class="card-title">Diospyros sintenisii</div>
+            <div class="card-title">Ébano de Sintenis</div>
+            <div class="card-subtitle"><i>Diospyros sintenisii</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Euphorbiaceae -->
-    <div id="Euphorbiaceae" class="species-section">
+    <section id="Euphorbiaceae">
       <h2>Euphorbiaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Croton poecilanthus">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=23" alt="Croton poecilanthus">
           <div class="card-content">
-            <div class="card-title">Croton poecilanthus</div>
+            <div class="card-title">Croton Variado</div>
+            <div class="card-subtitle"><i>Croton poecilanthus</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Sapium laurocerasus">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=24" alt="Sapium laurocerasus">
           <div class="card-content">
-            <div class="card-title">Sapium laurocerasus</div>
+            <div class="card-title">Acebo Lauroceraso</div>
+            <div class="card-subtitle"><i>Sapium laurocerasus</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Fabaceae -->
-    <div id="Fabaceae" class="species-section">
+    <section id="Fabaceae">
       <h2>Fabaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Caesalpinia monensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=25" alt="Caesalpinia monensis">
           <div class="card-content">
-            <div class="card-title">Caesalpinia monensis</div>
+            <div class="card-title">Caesalpinia de Mona</div>
+            <div class="card-subtitle"><i>Caesalpinia monensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Poitea punicea">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=26" alt="Poitea punicea">
           <div class="card-content">
-            <div class="card-title">Poitea punicea</div>
+            <div class="card-title">Árbol Puniciano</div>
+            <div class="card-subtitle"><i>Poitea punicea</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Gesneriaceae -->
-    <div id="Gesneriaceae" class="species-section">
+    <section id="Gesneriaceae">
       <h2>Gesneriaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Gesneria pedunculosa">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=27" alt="Gesneria pedunculosa">
           <div class="card-content">
-            <div class="card-title">Gesneria pedunculosa</div>
+            <div class="card-title">Gesneria Pedunculosa</div>
+            <div class="card-subtitle"><i>Gesneria pedunculosa</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Lamiaceae -->
-    <div id="Lamiaceae" class="species-section">
+    <section id="Lamiaceae">
       <h2>Lamiaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Cornutia obovata">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=28" alt="Cornutia obovata">
           <div class="card-content">
-            <div class="card-title">Cornutia obovata</div>
+            <div class="card-title">Cornutia de Puerto Rico</div>
+            <div class="card-subtitle"><i>Cornutia obovata</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Lauraceae -->
-    <div id="Lauraceae" class="species-section">
+    <section id="Lauraceae">
       <h2>Lauraceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Ocotea moschata">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=29" alt="Ocotea moschata">
           <div class="card-content">
-            <div class="card-title">Ocotea moschata</div>
+            <div class="card-title">Canela Moschata</div>
+            <div class="card-subtitle"><i>Ocotea moschata</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Ocotea portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=30" alt="Ocotea portoricensis">
           <div class="card-content">
-            <div class="card-title">Ocotea portoricensis</div>
+            <div class="card-title">Canela Puertorriqueña</div>
+            <div class="card-subtitle"><i>Ocotea portoricensis</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Magnoliaceae -->
-    <div id="Magnoliaceae" class="species-section">
+    <section id="Magnoliaceae">
       <h2>Magnoliaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Magnolia portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=31" alt="Magnolia portoricensis">
           <div class="card-content">
-            <div class="card-title">Magnolia portoricensis</div>
+            <div class="card-title">Magnolia Puertorriqueña</div>
+            <div class="card-subtitle"><i>Magnolia portoricensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Magnolia splendens">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=32" alt="Magnolia splendens">
           <div class="card-content">
-            <div class="card-title">Magnolia splendens</div>
+            <div class="card-title">Magnolia Espléndida</div>
+            <div class="card-subtitle"><i>Magnolia splendens</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Malpighiaceae -->
-    <div id="Malpighiaceae" class="species-section">
+    <section id="Malpighiaceae">
       <h2>Malpighiaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Byrsonima wadsworthii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=33" alt="Byrsonima wadsworthii">
           <div class="card-content">
-            <div class="card-title">Byrsonima wadsworthii</div>
+            <div class="card-title">Byrsonima de Wadsworth</div>
+            <div class="card-subtitle"><i>Byrsonima wadsworthii</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Malvaceae -->
-    <div id="Malvaceae" class="species-section">
+    <section id="Malvaceae">
       <h2>Malvaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Thespesia grandiflora">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=34" alt="Thespesia grandiflora">
           <div class="card-content">
-            <div class="card-title">Thespesia grandiflora</div>
+            <div class="card-title">Maga</div>
+            <div class="card-subtitle"><i>Thespesia grandiflora</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Melastomataceae -->
-    <div id="Melastomataceae" class="species-section">
+    <section id="Melastomataceae">
       <h2>Melastomataceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Henriettea membranifolia">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=35" alt="Henriettea membranifolia">
           <div class="card-content">
-            <div class="card-title">Henriettea membranifolia</div>
+            <div class="card-title">Henriettea Membranifolia</div>
+            <div class="card-subtitle"><i>Henriettea membranifolia</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Henriettea sessilifolia">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=36" alt="Henriettea sessilifolia">
           <div class="card-content">
-            <div class="card-title">Henriettea sessilifolia</div>
+            <div class="card-title">Henriettea Sessilifolia</div>
+            <div class="card-subtitle"><i>Henriettea sessilifolia</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Henriettea squamulosa">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=37" alt="Henriettea squamulosa">
           <div class="card-content">
-            <div class="card-title">Henriettea squamulosa</div>
+            <div class="card-title">Henriettea Squamulosa</div>
+            <div class="card-subtitle"><i>Henriettea squamulosa</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Miconia biflora">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=38" alt="Miconia biflora">
           <div class="card-content">
-            <div class="card-title">Miconia biflora</div>
+            <div class="card-title">Miconia Biflora</div>
+            <div class="card-subtitle"><i>Miconia biflora</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Miconia borinquensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=39" alt="Miconia borinquensis">
           <div class="card-content">
-            <div class="card-title">Miconia borinquensis</div>
+            <div class="card-title">Miconia Borinquensis</div>
+            <div class="card-subtitle"><i>Miconia borinquensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Miconia foveolata">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=40" alt="Miconia foveolata">
           <div class="card-content">
-            <div class="card-title">Miconia foveolata</div>
+            <div class="card-title">Miconia Foveolata</div>
+            <div class="card-subtitle"><i>Miconia foveolata</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Miconia krugiana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=41" alt="Miconia krugiana">
           <div class="card-content">
-            <div class="card-title">Miconia krugiana</div>
+            <div class="card-title">Miconia Krugiana</div>
+            <div class="card-subtitle"><i>Miconia krugiana</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Miconia laevigata">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=42" alt="Miconia laevigata">
           <div class="card-content">
-            <div class="card-title">Miconia laevigata</div>
+            <div class="card-title">Miconia Laevigata</div>
+            <div class="card-subtitle"><i>Miconia laevigata</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Miconia pachyphylla">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=43" alt="Miconia pachyphylla">
           <div class="card-content">
-            <div class="card-title">Miconia pachyphylla</div>
+            <div class="card-title">Miconia Pachyphylla</div>
+            <div class="card-subtitle"><i>Miconia pachyphylla</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Miconia pycnoneura">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=44" alt="Miconia pycnoneura">
           <div class="card-content">
-            <div class="card-title">Miconia pycnoneura</div>
+            <div class="card-title">Miconia Pycnoneura</div>
+            <div class="card-subtitle"><i>Miconia pycnoneura</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Miconia sintenisii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=45" alt="Miconia sintenisii">
           <div class="card-content">
-            <div class="card-title">Miconia sintenisii</div>
+            <div class="card-title">Miconia Sintenisii</div>
+            <div class="card-subtitle"><i>Miconia sintenisii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Miconia urbanii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=46" alt="Miconia urbanii">
           <div class="card-content">
-            <div class="card-title">Miconia urbanii</div>
+            <div class="card-title">Miconia Urbanii</div>
+            <div class="card-subtitle"><i>Miconia urbanii</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Meliaceae -->
-    <div id="Meliaceae" class="species-section">
+    <section id="Meliaceae">
       <h2>Meliaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Trichilia triacantha">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=47" alt="Trichilia triacantha">
           <div class="card-content">
-            <div class="card-title">Trichilia triacantha</div>
+            <div class="card-title">Trichilia Triacantha</div>
+            <div class="card-subtitle"><i>Trichilia triacantha</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Myricaceae -->
-    <div id="Myricaceae" class="species-section">
+    <section id="Myricaceae">
       <h2>Myricaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Morella holdridgeana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=48" alt="Morella holdridgeana">
           <div class="card-content">
-            <div class="card-title">Morella holdridgeana</div>
+            <div class="card-title">Morella Holdridgeana</div>
+            <div class="card-subtitle"><i>Morella holdridgeana</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Myrtaceae -->
-    <div id="Myrtaceae" class="species-section">
+    <section id="Myrtaceae">
       <h2>Myrtaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Eugenia boqueronensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=49" alt="Eugenia boqueronensis">
           <div class="card-content">
-            <div class="card-title">Eugenia boqueronensis</div>
+            <div class="card-title">Eugenia Boqueronensis</div>
+            <div class="card-subtitle"><i>Eugenia boqueronensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Eugenia eggersii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=50" alt="Eugenia eggersii">
           <div class="card-content">
-            <div class="card-title">Eugenia eggersii</div>
+            <div class="card-title">Eugenia Eggersii</div>
+            <div class="card-subtitle"><i>Eugenia eggersii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Eugenia fajardensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=51" alt="Eugenia fajardensis">
           <div class="card-content">
-            <div class="card-title">Eugenia fajardensis</div>
+            <div class="card-title">Eugenia Fajardensis</div>
+            <div class="card-subtitle"><i>Eugenia fajardensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Eugenia haematocarpa">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=52" alt="Eugenia haematocarpa">
           <div class="card-content">
-            <div class="card-title">Eugenia haematocarpa</div>
+            <div class="card-title">Eugenia Haematocarpa</div>
+            <div class="card-subtitle"><i>Eugenia haematocarpa</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Eugenia padronii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=53" alt="Eugenia padronii">
           <div class="card-content">
-            <div class="card-title">Eugenia padronii</div>
+            <div class="card-title">Eugenia Padronii</div>
+            <div class="card-subtitle"><i>Eugenia padronii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Eugenia serrasuela">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=54" alt="Eugenia serrasuela">
           <div class="card-content">
-            <div class="card-title">Eugenia serrasuela</div>
+            <div class="card-title">Eugenia Serrasuela</div>
+            <div class="card-subtitle"><i>Eugenia serrasuela</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Eugenia stahlii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=55" alt="Eugenia stahlii">
           <div class="card-content">
-            <div class="card-title">Eugenia stahlii</div>
+            <div class="card-title">Eugenia Stahlii</div>
+            <div class="card-subtitle"><i>Eugenia stahlii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Eugenia stewardsonii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=56" alt="Eugenia stewardsonii">
           <div class="card-content">
-            <div class="card-title">Eugenia stewardsonii</div>
+            <div class="card-title">Eugenia Stewardsonii</div>
+            <div class="card-subtitle"><i>Eugenia stewardsonii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Eugenia woodburyana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=57" alt="Eugenia woodburyana">
           <div class="card-content">
-            <div class="card-title">Eugenia woodburyana</div>
+            <div class="card-title">Eugenia Woodburyana</div>
+            <div class="card-subtitle"><i>Eugenia woodburyana</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Myrcia estremerae">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=58" alt="Myrcia estremerae">
           <div class="card-content">
-            <div class="card-title">Myrcia estremerae</div>
+            <div class="card-title">Myrcia Estremerae</div>
+            <div class="card-subtitle"><i>Myrcia estremerae</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Myrcia krugii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=59" alt="Myrcia krugii">
           <div class="card-content">
-            <div class="card-title">Myrcia krugii</div>
+            <div class="card-title">Myrcia Krugii</div>
+            <div class="card-subtitle"><i>Myrcia krugii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Myrcia luquillensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=60" alt="Myrcia luquillensis">
           <div class="card-content">
-            <div class="card-title">Myrcia luquillensis</div>
+            <div class="card-title">Myrcia Luquillensis</div>
+            <div class="card-subtitle"><i>Myrcia luquillensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Myrcia peduncularis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=61" alt="Myrcia peduncularis">
           <div class="card-content">
-            <div class="card-title">Myrcia peduncularis</div>
+            <div class="card-title">Myrcia Peduncularis</div>
+            <div class="card-subtitle"><i>Myrcia peduncularis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Myrcia portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=62" alt="Myrcia portoricensis">
           <div class="card-content">
-            <div class="card-title">Myrcia portoricensis</div>
+            <div class="card-title">Myrcia Puertorriqueña</div>
+            <div class="card-subtitle"><i>Myrcia portoricensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Myrcia sintenisiana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=63" alt="Myrcia sintenisiana">
           <div class="card-content">
-            <div class="card-title">Myrcia sintenisiana</div>
+            <div class="card-title">Myrcia Sintenisiana</div>
+            <div class="card-subtitle"><i>Myrcia sintenisiana</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Myrcia woodburyi">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=64" alt="Myrcia woodburyi">
           <div class="card-content">
-            <div class="card-title">Myrcia woodburyi</div>
+            <div class="card-title">Myrcia Woodburyi</div>
+            <div class="card-subtitle"><i>Myrcia woodburyi</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Myrciaria borinquena">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=65" alt="Myrciaria borinquena">
           <div class="card-content">
-            <div class="card-title">Myrciaria borinquena</div>
+            <div class="card-title">Myrciaria Borinquena</div>
+            <div class="card-subtitle"><i>Myrciaria borinquena</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Myrciaria myrtifolia">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=66" alt="Myrciaria myrtifolia">
           <div class="card-content">
-            <div class="card-title">Myrciaria myrtifolia</div>
+            <div class="card-title">Myrciaria Myrtifolia</div>
+            <div class="card-subtitle"><i>Myrciaria myrtifolia</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Pimenta paganii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=67" alt="Pimenta paganii">
           <div class="card-content">
-            <div class="card-title">Pimenta paganii</div>
+            <div class="card-title">Pimenta Paganii</div>
+            <div class="card-subtitle"><i>Pimenta paganii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Psidium calyptranthoides">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=68" alt="Psidium calyptranthoides">
           <div class="card-content">
-            <div class="card-title">Psidium calyptranthoides</div>
+            <div class="card-title">Psidium Calyptranthoides</div>
+            <div class="card-subtitle"><i>Psidium calyptranthoides</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Psidium sintenisii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=69" alt="Psidium sintenisii">
           <div class="card-content">
-            <div class="card-title">Psidium sintenisii</div>
+            <div class="card-title">Psidium Sintenisii</div>
+            <div class="card-subtitle"><i>Psidium sintenisii</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Nyctaginaceae -->
-    <div id="Nyctaginaceae" class="species-section">
+    <section id="Nyctaginaceae">
       <h2>Nyctaginaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Pisonia horneae">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=70" alt="Pisonia horneae">
           <div class="card-content">
-            <div class="card-title">Pisonia horneae</div>
+            <div class="card-title">Pisonia Horneae</div>
+            <div class="card-subtitle"><i>Pisonia horneae</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Pisonia roqueae">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=71" alt="Pisonia roqueae">
           <div class="card-content">
-            <div class="card-title">Pisonia roqueae</div>
+            <div class="card-title">Pisonia Roqueae</div>
+            <div class="card-subtitle"><i>Pisonia roqueae</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Pisonia taina">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=72" alt="Pisonia taina">
           <div class="card-content">
-            <div class="card-title">Pisonia taina</div>
+            <div class="card-title">Pisonia Taina</div>
+            <div class="card-subtitle"><i>Pisonia taina</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Oleaceae -->
-    <div id="Oleaceae" class="species-section">
+    <section id="Oleaceae">
       <h2>Oleaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Chionanthus holdridgii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=73" alt="Chionanthus holdridgii">
           <div class="card-content">
-            <div class="card-title">Chionanthus holdridgii</div>
+            <div class="card-title">Chionanthus Holdridgii</div>
+            <div class="card-subtitle"><i>Chionanthus holdridgii</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Pentaphylacaceae -->
-    <div id="Pentaphylacaceae" class="species-section">
+    <section id="Pentaphylacaceae">
       <h2>Pentaphylacaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Ternstroemia heptasepala">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=74" alt="Ternstroemia heptasepala">
           <div class="card-content">
-            <div class="card-title">Ternstroemia heptasepala</div>
+            <div class="card-title">Ternstroemia Heptasepala</div>
+            <div class="card-subtitle"><i>Ternstroemia heptasepala</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Ternstroemia luquillensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=75" alt="Ternstroemia luquillensis">
           <div class="card-content">
-            <div class="card-title">Ternstroemia luquillensis</div>
+            <div class="card-title">Ternstroemia Luquillensis</div>
+            <div class="card-subtitle"><i>Ternstroemia luquillensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Ternstroemia stahlii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=76" alt="Ternstroemia stahlii">
           <div class="card-content">
-            <div class="card-title">Ternstroemia stahlii</div>
+            <div class="card-title">Ternstroemia Stahlii</div>
+            <div class="card-subtitle"><i>Ternstroemia stahlii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Ternstroemia subsessilis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=77" alt="Ternstroemia subsessilis">
           <div class="card-content">
-            <div class="card-title">Ternstroemia subsessilis</div>
+            <div class="card-title">Ternstroemia Subsessilis</div>
+            <div class="card-subtitle"><i>Ternstroemia subsessilis</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Phyllanthaceae -->
-    <div id="Phyllanthaceae" class="species-section">
+    <section id="Phyllanthaceae">
       <h2>Phyllanthaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Hieronyma clusioides">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=78" alt="Hieronyma clusioides">
           <div class="card-content">
-            <div class="card-title">Hieronyma clusioides</div>
+            <div class="card-title">Hieronyma Clusioides</div>
+            <div class="card-subtitle"><i>Hieronyma clusioides</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Phyllanthus cuneifolius">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=79" alt="Phyllanthus cuneifolius">
           <div class="card-content">
-            <div class="card-title">Phyllanthus cuneifolius</div>
+            <div class="card-title">Phyllanthus Cuneifolius</div>
+            <div class="card-subtitle"><i>Phyllanthus cuneifolius</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Polygalaceae -->
-    <div id="Polygalaceae" class="species-section">
+    <section id="Polygalaceae">
       <h2>Polygalaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Phlebotaenia cowellii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=80" alt="Phlebotaenia cowellii">
           <div class="card-content">
-            <div class="card-title">Phlebotaenia cowellii</div>
+            <div class="card-title">Phlebotaenia Cowellii</div>
+            <div class="card-subtitle"><i>Phlebotaenia cowellii</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Polygonaceae -->
-    <div id="Polygonaceae" class="species-section">
+    <section id="Polygonaceae">
       <h2>Polygonaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Coccoloba rugosa">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=81" alt="Coccoloba rugosa">
           <div class="card-content">
-            <div class="card-title">Coccoloba rugosa</div>
+            <div class="card-title">Coccoloba Rugosa</div>
+            <div class="card-subtitle"><i>Coccoloba rugosa</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Coccoloba sintenisii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=82" alt="Coccoloba sintenisii">
           <div class="card-content">
-            <div class="card-title">Coccoloba sintenisii</div>
+            <div class="card-title">Coccoloba Sintenisii</div>
+            <div class="card-subtitle"><i>Coccoloba sintenisii</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Primulaceae -->
-    <div id="Primulaceae" class="species-section">
+    <section id="Primulaceae">
       <h2>Primulaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Ardisia glauciflora">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=83" alt="Ardisia glauciflora">
           <div class="card-content">
-            <div class="card-title">Ardisia glauciflora</div>
+            <div class="card-title">Ardisia Glauciflora</div>
+            <div class="card-subtitle"><i>Ardisia glauciflora</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Ardisia luquillensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=84" alt="Ardisia luquillensis">
           <div class="card-content">
-            <div class="card-title">Ardisia luquillensis</div>
+            <div class="card-title">Ardisia Luquillensis</div>
+            <div class="card-subtitle"><i>Ardisia luquillensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Cybianthus sintenisii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=85" alt="Cybianthus sintenisii">
           <div class="card-content">
-            <div class="card-title">Cybianthus sintenisii</div>
+            <div class="card-title">Cybianthus Sintenisii</div>
+            <div class="card-subtitle"><i>Cybianthus sintenisii</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Rhamnaceae -->
-    <div id="Rhamnaceae" class="species-section">
+    <section id="Rhamnaceae">
       <h2>Rhamnaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Auerodendron pauciflorum">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=86" alt="Auerodendron pauciflorum">
           <div class="card-content">
-            <div class="card-title">Auerodendron pauciflorum</div>
+            <div class="card-title">Auerodendron Pauciflorum</div>
+            <div class="card-subtitle"><i>Auerodendron pauciflorum</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Reynosia krugii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=87" alt="Reynosia krugii">
           <div class="card-content">
-            <div class="card-title">Reynosia krugii</div>
+            <div class="card-title">Reynosia Krugii</div>
+            <div class="card-subtitle"><i>Reynosia krugii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Reynosia vivesiana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=88" alt="Reynosia vivesiana">
           <div class="card-content">
-            <div class="card-title">Reynosia vivesiana</div>
+            <div class="card-title">Reynosia Vivesiana</div>
+            <div class="card-subtitle"><i>Reynosia vivesiana</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Rubiaceae -->
-    <div id="Rubiaceae" class="species-section">
+    <section id="Rubiaceae">
       <h2>Rubiaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Machaonia portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=89" alt="Machaonia portoricensis">
           <div class="card-content">
-            <div class="card-title">Machaonia portoricensis</div>
+            <div class="card-title">Machaonia Portoricensis</div>
+            <div class="card-subtitle"><i>Machaonia portoricensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Phialanthus grandifolius">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=90" alt="Phialanthus grandifolius">
           <div class="card-content">
-            <div class="card-title">Phialanthus grandifolius</div>
+            <div class="card-title">Phialanthus Grandifolius</div>
+            <div class="card-subtitle"><i>Phialanthus grandifolius</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Psychotria maleolens">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=91" alt="Psychotria maleolens">
           <div class="card-content">
-            <div class="card-title">Psychotria maleolens</div>
+            <div class="card-title">Psychotria Maleolens</div>
+            <div class="card-subtitle"><i>Psychotria maleolens</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Psychotria maricaensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=92" alt="Psychotria maricaensis">
           <div class="card-content">
-            <div class="card-title">Psychotria maricaensis</div>
+            <div class="card-title">Psychotria Maricaensis</div>
+            <div class="card-subtitle"><i>Psychotria maricaensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Rondeletia inermis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=93" alt="Rondeletia inermis">
           <div class="card-content">
-            <div class="card-title">Rondeletia inermis</div>
+            <div class="card-title">Rondeletia Inermis</div>
+            <div class="card-subtitle"><i>Rondeletia inermis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Rondeletia portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=94" alt="Rondeletia portoricensis">
           <div class="card-content">
-            <div class="card-title">Rondeletia portoricensis</div>
+            <div class="card-title">Rondeletia Portoricensis</div>
+            <div class="card-subtitle"><i>Rondeletia portoricensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Stenostomum obtusifolium">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=95" alt="Stenostomum obtusifolium">
           <div class="card-content">
-            <div class="card-title">Stenostomum obtusifolium</div>
+            <div class="card-title">Stenostomum Obtusifolium</div>
+            <div class="card-subtitle"><i>Stenostomum obtusifolium</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Stenostomum portoricense">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=96" alt="Stenostomum portoricense">
           <div class="card-content">
-            <div class="card-title">Stenostomum portoricense</div>
+            <div class="card-title">Stenostomum Portoricense</div>
+            <div class="card-subtitle"><i>Stenostomum portoricense</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Stenostomum sintenisii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=97" alt="Stenostomum sintenisii">
           <div class="card-content">
-            <div class="card-title">Stenostomum sintenisii</div>
+            <div class="card-title">Stenostomum Sintenisii</div>
+            <div class="card-subtitle"><i>Stenostomum sintenisii</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Rutaceae -->
-    <div id="Rutaceae" class="species-section">
+    <section id="Rutaceae">
       <h2>Rutaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Ravenia urbani">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=98" alt="Ravenia urbani">
           <div class="card-content">
-            <div class="card-title">Ravenia urbani</div>
+            <div class="card-title">Ravenia Urbani</div>
+            <div class="card-subtitle"><i>Ravenia urbani</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Sabiaceae -->
-    <div id="Sabiaceae" class="species-section">
+    <section id="Sabiaceae">
       <h2>Sabiaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Meliosma obtusifolia">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=99" alt="Meliosma obtusifolia">
           <div class="card-content">
-            <div class="card-title">Meliosma obtusifolia</div>
+            <div class="card-title">Meliosma Obtusifolia</div>
+            <div class="card-subtitle"><i>Meliosma obtusifolia</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Salicaceae -->
-    <div id="Salicaceae" class="species-section">
+    <section id="Salicaceae">
       <h2>Salicaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Banara portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=100" alt="Banara portoricensis">
           <div class="card-content">
-            <div class="card-title">Banara portoricensis</div>
+            <div class="card-title">Banara Portoricensis</div>
+            <div class="card-subtitle"><i>Banara portoricensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Banara vanderbiltii">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=101" alt="Banara vanderbiltii">
           <div class="card-content">
-            <div class="card-title">Banara vanderbiltii</div>
+            <div class="card-title">Banara Vanderbiltii</div>
+            <div class="card-subtitle"><i>Banara vanderbiltii</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Xylosma pachyphylla">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=102" alt="Xylosma pachyphylla">
           <div class="card-content">
-            <div class="card-title">Xylosma pachyphylla</div>
+            <div class="card-title">Xylosma Pachyphylla</div>
+            <div class="card-subtitle"><i>Xylosma pachyphylla</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Xylosma schwaneckeana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=103" alt="Xylosma schwaneckeana">
           <div class="card-content">
-            <div class="card-title">Xylosma schwaneckeana</div>
+            <div class="card-title">Xylosma Schwaneckeana</div>
+            <div class="card-subtitle"><i>Xylosma schwaneckeana</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Sapindaceae -->
-    <div id="Sapindaceae" class="species-section">
+    <section id="Sapindaceae">
       <h2>Sapindaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Thouinia striata">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=104" alt="Thouinia striata">
           <div class="card-content">
-            <div class="card-title">Thouinia striata</div>
+            <div class="card-title">Thouinia Striata</div>
+            <div class="card-subtitle"><i>Thouinia striata</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Sapotaceae -->
-    <div id="Sapotaceae" class="species-section">
+    <section id="Sapotaceae">
       <h2>Sapotaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Manilkara pleeana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=105" alt="Manilkara pleeana">
           <div class="card-content">
-            <div class="card-title">Manilkara pleeana</div>
+            <div class="card-title">Manilkara Pleeana</div>
+            <div class="card-subtitle"><i>Manilkara pleeana</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Micropholis garciniifolia">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=106" alt="Micropholis garciniifolia">
           <div class="card-content">
-            <div class="card-title">Micropholis garciniifolia</div>
+            <div class="card-title">Micropholis Garciniifolia</div>
+            <div class="card-subtitle"><i>Micropholis garciniifolia</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Pouteria multiflora">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=107" alt="Pouteria multiflora">
           <div class="card-content">
-            <div class="card-title">Pouteria multiflora</div>
+            <div class="card-title">Pouteria Multiflora</div>
+            <div class="card-subtitle"><i>Pouteria multiflora</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Schoepfiaceae -->
-    <div id="Schoepfiaceae" class="species-section">
+    <section id="Schoepfiaceae">
       <h2>Schoepfiaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Schoepfia arenaria">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=108" alt="Schoepfia arenaria">
           <div class="card-content">
-            <div class="card-title">Schoepfia arenaria</div>
+            <div class="card-title">Schoepfia Arenaria</div>
+            <div class="card-subtitle"><i>Schoepfia arenaria</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Simaroubaceae -->
-    <div id="Simaroubaceae" class="species-section">
+    <section id="Simaroubaceae">
       <h2>Simaroubaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Simarouba tulae">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=109" alt="Simarouba tulae">
           <div class="card-content">
-            <div class="card-title">Simarouba tulae</div>
+            <div class="card-title">Simarouba Tulae</div>
+            <div class="card-subtitle"><i>Simarouba tulae</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Solanaceae -->
-    <div id="Solanaceae" class="species-section">
+    <section id="Solanaceae">
       <h2>Solanaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Brunfelsia densifolia">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=110" alt="Brunfelsia densifolia">
           <div class="card-content">
-            <div class="card-title">Brunfelsia densifolia</div>
+            <div class="card-title">Brunfelsia Densifolia</div>
+            <div class="card-subtitle"><i>Brunfelsia densifolia</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Brunfelsia lactea">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=111" alt="Brunfelsia lactea">
           <div class="card-content">
-            <div class="card-title">Brunfelsia lactea</div>
+            <div class="card-title">Brunfelsia Lactea</div>
+            <div class="card-subtitle"><i>Brunfelsia lactea</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Brunfelsia portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=112" alt="Brunfelsia portoricensis">
           <div class="card-content">
-            <div class="card-title">Brunfelsia portoricensis</div>
+            <div class="card-title">Brunfelsia Portoricensis</div>
+            <div class="card-subtitle"><i>Brunfelsia portoricensis</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Goetzea elegans">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=113" alt="Goetzea elegans">
           <div class="card-content">
-            <div class="card-title">Goetzea elegans</div>
+            <div class="card-title">Goetzea Elegans</div>
+            <div class="card-subtitle"><i>Goetzea elegans</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Solanum ensifolium">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=114" alt="Solanum ensifolium">
           <div class="card-content">
-            <div class="card-title">Solanum ensifolium</div>
+            <div class="card-title">Solanum Ensifolium</div>
+            <div class="card-subtitle"><i>Solanum ensifolium</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Styracaceae -->
-    <div id="Styracaceae" class="species-section">
+    <section id="Styracaceae">
       <h2>Styracaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Styrax portoricensis">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=115" alt="Styrax portoricensis">
           <div class="card-content">
-            <div class="card-title">Styrax portoricensis</div>
+            <div class="card-title">Styrax Portoricensis</div>
+            <div class="card-subtitle"><i>Styrax portoricensis</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Symplocaceae -->
-    <div id="Symplocaceae" class="species-section">
+    <section id="Symplocaceae">
       <h2>Symplocaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Symplocos lanata">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=116" alt="Symplocos lanata">
           <div class="card-content">
-            <div class="card-title">Symplocos lanata</div>
+            <div class="card-title">Symplocos Lanata</div>
+            <div class="card-subtitle"><i>Symplocos lanata</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Symplocos micrantha">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=117" alt="Symplocos micrantha">
           <div class="card-content">
-            <div class="card-title">Symplocos micrantha</div>
+            <div class="card-title">Symplocos Micrantha</div>
+            <div class="card-subtitle"><i>Symplocos micrantha</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Thymelaeaceae -->
-    <div id="Thymelaeaceae" class="species-section">
+    <section id="Thymelaeaceae">
       <h2>Thymelaeaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Daphnopsis helleriana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=118" alt="Daphnopsis helleriana">
           <div class="card-content">
-            <div class="card-title">Daphnopsis helleriana</div>
+            <div class="card-title">Daphnopsis Helleriana</div>
+            <div class="card-subtitle"><i>Daphnopsis helleriana</i></div>
           </div>
         </div>
         <div class="card">
-          <img src="placeholder.jpg" alt="Daphnopsis philippiana">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=119" alt="Daphnopsis philippiana">
           <div class="card-content">
-            <div class="card-title">Daphnopsis philippiana</div>
+            <div class="card-title">Daphnopsis Philippiana</div>
+            <div class="card-subtitle"><i>Daphnopsis philippiana</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
+
     <!-- Urticaceae -->
-    <div id="Urticaceae" class="species-section">
+    <section id="Urticaceae">
       <h2>Urticaceae</h2>
       <div class="cards-container">
         <div class="card">
-          <img src="placeholder.jpg" alt="Urera chlorocarpa">
+          <img src="https://source.unsplash.com/random/300x300?plant&sig=120" alt="Urera chlorocarpa">
           <div class="card-content">
-            <div class="card-title">Urera chlorocarpa</div>
+            <div class="card-title">Urera Chlorocarpa</div>
+            <div class="card-subtitle"><i>Urera chlorocarpa</i></div>
           </div>
         </div>
       </div>
-    </div>
-    
-  </div>
+    </section>
+  </main>
 </body>
 </html>
